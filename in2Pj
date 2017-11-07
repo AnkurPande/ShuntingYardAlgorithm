@@ -1,6 +1,6 @@
 import java.util.StringTokenizer;
 
-public class In2pJ {
+public class InfixToPostFix {
 
 	private boolean checkOperator(String op) {
 
@@ -71,6 +71,5 @@ public class In2pJ {
 		InfixToPostFix infixToPostfix = new InfixToPostFix();
 		Queue queue = new Queue();
 		System.out.println("Enter String :" + args[0]);
-		System.out.println(infixToPostfix.In2pJ(args[0], queue));
+		System.out.println("Postfix :" + infixToPostfix.In2pJ(args[0], queue));
 	}
-}
