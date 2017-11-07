@@ -1,0 +1,75 @@
+import java.util.StringTokenizer;
+
+public class InfixToPostFix {
+
+	private boolean checkOperator(String op) {
+
+		if (op.equals("x") || op.equals("/") || op.equals("-") || op.equals("+")) {
+			// Return true if operator.
+			return true;
+		} else {
+			// Return false if operand.
+			return false;
+		}
+	}
+
+	// Precedence order -: ~,# > *,/ > +,- > (
+	// ~ is unary minus and # is unary plus.
+	private int checkPrecedence(String operator) {
+
+		if (operator.equals("+") || operator.equals("-")) {
+			return 1;
+		} else  {
+			return 2;
+		} 
+	}
+
+	public String In2pJ(String Infix, Queue queue) {
+		Stack stack = new Stack();
+
+		StringTokenizer st = new StringTokenizer(Infix, "*/+-", true);
+		while (st.hasMoreTokens()) {
+			String token = st.nextToken();
+			boolean retVal = checkOperator(token);
+			if (retVal) { // operator
+				int precedence = checkPrecedence(token);
+				String stackToken = stack.pop();
+				while (stackToken != null) {
+					int stackPrecedence = checkPrecedence(stackToken);
+					if (stackPrecedence > precedence) {
+						queue.enqueue(stackToken);
+					} else {
+						stack.push(stackToken);
+						break;
+					}
+					stackToken = stack.pop();
+				}
+				stack.push(token);
+			} else {// operand
+				queue.enqueue(token);
+			}
+
+		}
+
+		String stackToken = stack.pop();
+		while (stackToken != null) {
+			queue.enqueue(stackToken);
+			stackToken = stack.pop();
+		}
+
+		String postFix = "";
+		String queueToken = queue.dequeue();
+		while (queueToken != null) {
+			postFix = postFix + queueToken;
+			queueToken = queue.dequeue();
+		}
+		return postFix;
+	}
+
+
+	public static void main(String args[]) {
+		InfixToPostFix infixToPostfix = new InfixToPostFix();
+		Queue queue = new Queue();
+		System.out.println(infixToPostfix.In2pJ("2+6/3", queue));
+	}
+}
