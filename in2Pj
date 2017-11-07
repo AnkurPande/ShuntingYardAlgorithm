@@ -68,8 +68,9 @@ public class In2pJ {
 
 
 	public static void main(String args[]) {
-		In2pJ infixToPostfix = new In2pJ();
+		InfixToPostFix infixToPostfix = new InfixToPostFix();
 		Queue queue = new Queue();
-		System.out.println(infixToPostfix.In2pJ("2+6/3", queue));
+		System.out.println("Enter String :" + args[0]);
+		System.out.println(infixToPostfix.In2pJ(args[0], queue));
 	}
 }
